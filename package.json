@@ -1,5 +1,5 @@
 {
-  "name": "hashify",
+  "name": "gulp-hashify",
   "version": "0.0.1",
   "description": "A gulp plugin for turning a stream of files into a JavaScript object.",
   "main": "hashify.js",
