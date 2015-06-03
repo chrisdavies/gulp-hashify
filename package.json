@@ -1,0 +1,15 @@
+{
+  "name": "hashify",
+  "version": "0.0.1",
+  "description": "A gulp plugin for turning a stream of files into a JavaScript object.",
+  "main": "hashify.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Chris Davies",
+  "license": "MIT",
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "through2": "^0.6.5"
+  }
+}
