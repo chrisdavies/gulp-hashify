@@ -1,12 +1,17 @@
 var through = require('through2');
 var File = require('vinyl');
+var gutil = require('gulp-util');
+var PluginError = gutil.PluginError;
 
-function hashify (fileName) {
+function hashify (fileName, varName) {
+  varName = varName || 'views';
+  
   if (!fileName) {
-    throw new PluginError('gulp-hashify', 'Missing file option for gulp-hashify');
+    throw new PluginError('gulp-hashify', 'Missing fileName option for gulp-hashify');
   }
 
   var views = {};
+  
   var hasViews = false;
 
   function bufferContents(file, enc, cb) {
@@ -39,15 +44,10 @@ function hashify (fileName) {
       return;
     }
 
-    // Generate the views js file contents
-    var jsScript = 'var views = ' +
-      JSON.stringify(views) +
-      ';\nif (typeof module !== "undefined" && module.exports) { module.exports = views; }';
-
     // Push the views js file into the stream
     this.push(new File({
       path: fileName,
-      contents: new Buffer(jsScript)
+      contents: new Buffer(genScript(views, varName))
     }));
 
     cb();
@@ -55,5 +55,14 @@ function hashify (fileName) {
 
   return through.obj(bufferContents, endStream);
 };
+
+function genScript(views, varName) {
+  var isProperty = ~varName.indexOf('.');
+  
+  return (isProperty ? '' : 'var ') + 
+    varName + '=' +
+    JSON.stringify(views) +
+    ';\nif (typeof module !== "undefined" && module.exports) { module.exports = views; }';
+}
 
 module.exports = hashify;
