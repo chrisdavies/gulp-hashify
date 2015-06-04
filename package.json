@@ -1,10 +1,14 @@
 {
   "name": "gulp-hashify",
-  "version": "0.0.2",
+  "version": "0.0.21",
   "description": "A gulp plugin for turning a stream of files into a JavaScript object.",
   "main": "hashify.js",
   "scripts": {
     "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:chrisdavies/gulp-hashify.git"
   },
   "author": "Chris Davies",
   "license": "MIT",
