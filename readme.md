@@ -54,7 +54,7 @@ if (typeof module !== "undefined" && module.exports) {
 The hashify function takes two arguments:
 
 - *fileName* = the name of the file to be output
-- *varName* = (optional) the name of the variable to be included in the output file. Defaults to views. If varName has a `.` in it, then it will not produce a variable declaration at all.
+- *varName* = (optional) the name of the variable to be included in the output file. Defaults to `views`. If varName has a `.` in it, then it will not produce a variable declaration at all.
 
 ### Example  
 
