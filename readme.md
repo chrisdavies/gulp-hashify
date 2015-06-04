@@ -79,7 +79,7 @@ app.templates = {
 };
 
 if (typeof module !== "undefined" && module.exports) { 
-  module.exports = views; 
+  module.exports = app.templates; 
 }
 ```
 
