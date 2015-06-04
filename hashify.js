@@ -62,7 +62,7 @@ function genScript(views, varName) {
   return (isProperty ? '' : 'var ') + 
     varName + '=' +
     JSON.stringify(views) +
-    ';\nif (typeof module !== "undefined" && module.exports) { module.exports = views; }';
+    ';\nif (typeof module !== "undefined" && module.exports) { module.exports = ' + varName + '; }';
 }
 
 module.exports = hashify;

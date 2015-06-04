@@ -16,6 +16,13 @@ function getHash(d, varName) {
   return fn();
 }
 
+function getExportedHash(d, varName) {
+  var fn = new Function('module', d.contents.toString() + ' return ' + (varName || 'views'));
+  var moduleObj = { exports: {} };
+  fn(moduleObj);
+  return moduleObj.exports;
+}
+
 describe('gulp-hashify', function() {
   it('should throw, when arguments is missing', function () {
     (function() {
@@ -87,6 +94,16 @@ describe('gulp-hashify', function() {
       .pipe(assert.length(1))
       .pipe(assert.first(function (d) { 
         d.contents.toString().indexOf('foo.bar=').should.eql(0);
+      }))
+      .pipe(assert.end(done));
+  });
+  
+  it('should export the views', function (done) {
+    test('wadap', 'doe')
+      .pipe(hashify('test.js', 'foo'))
+      .pipe(assert.length(1))
+      .pipe(assert.first(function (d) { 
+        getExportedHash(d, 'foo').file0.should.eql('wadap'); 
       }))
       .pipe(assert.end(done));
   });
