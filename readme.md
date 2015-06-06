@@ -83,6 +83,34 @@ if (typeof module !== "undefined" && module.exports) {
 }
 ```
 
+### Browserify example
+
+This task will find all `.html` files in `./src/views` and bundle them into an external browserify bundle. The 
+views object can then be imported via `var views = require('views');`, provided `./dist/js/views.js` is referred 
+to in the HTML file.
+
+```javascript
+var gulp = require('gulp');
+var browserify = require('browserify');
+var hashify = require('gulp-hashify');
+var source = require('vinyl-source-stream');
+var buffer = require('vinyl-buffer');
+var tap = require('gulp-tap');
+
+gulp.task('js:views', function () {
+  return gulp.src('./src/views/**/*.html')
+    .pipe(hashify('bundled-views.js'))
+    .pipe(tap(function(file) {
+      return browserify()
+        .require(file, { expose: 'views' })
+        .bundle()
+        .pipe(source('views.js'))
+        .pipe(buffer())
+        .pipe(gulp.dest('./dist/js'));
+    }));
+});
+```
+
 ---
 
 ## License MIT
